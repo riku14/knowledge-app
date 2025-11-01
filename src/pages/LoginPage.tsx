@@ -25,6 +25,7 @@ export default function LoginPage() {
   }
 
   return (
+    // TODO:ログイン承認機能
     <div className=" flex flex-col items-center justify-center min-h-screen w-full bg-linear-to-bl from-violet-500 to-fuchsia-500">
       <h1 className="mb-4 text-3xl font-bold">ナレッジ共有サイト</h1>
       {/* ログインフォーム */}

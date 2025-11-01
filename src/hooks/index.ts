@@ -1,0 +1,1 @@
+export { useCurrentPageName } from './useCurrentPageName'

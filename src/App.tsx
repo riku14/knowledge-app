@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import LoginPage from './pages/LoginPage'
 import { HomePage } from './pages/HomePage'
-import { Layout } from './components/Layout'
+import { Layout } from './components/layout/Layout'
 
 function App() {
   return (

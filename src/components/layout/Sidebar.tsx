@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router'
-import { menuItems } from '../constants'
+import { menuItems } from '../../constants'
 
 export const Sidebar = () => {
   const navigate = useNavigate()

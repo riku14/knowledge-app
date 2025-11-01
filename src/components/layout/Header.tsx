@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router'
-import { useCurrentPageName } from '../hooks'
+import { useCurrentPageName } from '../../hooks'
 
 export const Header = () => {
   const navigate = useNavigate()

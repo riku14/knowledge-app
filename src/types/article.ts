@@ -6,4 +6,8 @@ export interface Article {
     id: string
     name: string
   }
+  tags: Array<{
+    id: string
+    name: string
+  }>
 }

@@ -27,7 +27,9 @@ export const Sidebar = ({ isOpen, onClose, onToggle }: SidebarProps) => {
         }`}
       >
         <div className="flex items-center">
-          <h1 className="p-2 text-xl font-bold text-gray-800">ナレッジ共有サイト</h1>
+          <h1 className="p-2 text-xl font-bold text-gray-800 whitespace-nowrap">
+            ナレッジ共有サイト
+          </h1>
           <button
             onClick={onToggle}
             className="p-2 rouded text-gray-600 hover:bg-gray-100"

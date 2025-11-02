@@ -20,6 +20,8 @@ export const mockArticles: Article[] = [
       avatar: undefined,
     },
     createdAt: '2025-12-22T10:00:00Z',
+    updatedAt: '2025-12-22T15:30:00Z',
+    favoriteCount: 12,
     status: 'published',
   },
   {
@@ -42,6 +44,8 @@ export const mockArticles: Article[] = [
       avatar: 'https://via.placeholder.com/40',
     },
     createdAt: '2025-12-22T10:00:00Z',
+    updatedAt: '2025-12-25T15:30:00Z',
+    favoriteCount: 5,
     status: 'published',
   },
 ]
@@ -79,8 +83,8 @@ export const getCategories = () => {
 // フィルターとソート
 export const getFilteredArticles = (
   categoryId?: string,
-  // tagId?: string,
-  sortBy: 'newest' | 'oldest' = 'newest'
+  tagId?: string,
+  sortBy: 'newest' | 'oldest' | 'updated' | 'popular' = 'newest'
 ): Article[] => {
   let filtered = getAllArticles()
 
@@ -89,18 +93,35 @@ export const getFilteredArticles = (
     filtered = filtered.filter((article) => article.category.id === categoryId)
   }
 
-  // TODO:タグフィルター
+  // タグフィルター
+  if (tagId && tagId !== 'all') {
+    filtered = filtered.filter((article) => article.tags.some((tag) => tag.id === tagId))
+  }
 
   // ソート
   filtered.sort((a, b) => {
-    const dateA = new Date(a.createdAt).getTime()
-    const dateB = new Date(b.createdAt).getTime()
-
     if (sortBy === 'newest') {
+      // 新着順: 作成日の降順
+      const dateA = new Date(a.createdAt).getTime()
+      const dateB = new Date(b.createdAt).getTime()
       return dateB - dateA
-    } else {
+    } else if (sortBy === 'oldest') {
+      // 古い順: 作成日の昇順
+      const dateA = new Date(a.createdAt).getTime()
+      const dateB = new Date(b.createdAt).getTime()
       return dateA - dateB
+    } else if (sortBy === 'updated') {
+      const dateA = new Date(a.updatedAt || a.createdAt).getTime()
+      const dateB = new Date(b.updatedAt || b.createdAt).getTime()
+      return dateB - dateA
+    } else if (sortBy === 'popular') {
+      // 人気順: お気に入り数の降順
+      const countA = a.favoriteCount || 0
+      const countB = b.favoriteCount || 0
+      return countB - countA
     }
+    return 0
   })
+
   return filtered
 }

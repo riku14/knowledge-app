@@ -17,5 +17,7 @@ export interface Article {
     avatar?: string
   }
   createdAt: string
+  updatedAt?: string
+  favoriteCount?: number
   status?: 'published' | 'draft'
 }

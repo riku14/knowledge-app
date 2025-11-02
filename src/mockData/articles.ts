@@ -20,6 +20,7 @@ export const mockArticles: Article[] = [
       avatar: undefined,
     },
     createdAt: '2025-12-22T10:00:00Z',
+    status: 'published',
   },
   {
     id: '2',
@@ -41,5 +42,17 @@ export const mockArticles: Article[] = [
       avatar: 'https://via.placeholder.com/40',
     },
     createdAt: '2025-12-22T10:00:00Z',
+    status: 'published',
   },
 ]
+
+export const getRecentArticles = (limit: number = 10): Article[] => {
+  return [...mockArticles]
+    .filter((article) => article.status === 'published' || !article.status)
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime()
+      const dateB = new Date(b.createdAt).getTime()
+      return dateB - dateA
+    })
+    .slice(0, limit)
+}

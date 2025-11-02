@@ -1,3 +1,4 @@
+// 記事投稿の型
 export interface Article {
   id: string
   title: string
@@ -16,4 +17,5 @@ export interface Article {
     avatar?: string
   }
   createdAt: string
+  status?: 'published' | 'draft'
 }

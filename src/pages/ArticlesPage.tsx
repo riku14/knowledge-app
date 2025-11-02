@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { ArticleCard } from '../components/ArticleCard'
 import { getCategories, getFilteredArticles, mockTags } from '../mockData'
+import { FILTER_ALL, SortType } from '../constants'
 
 export const ArticlesPage = () => {
   // フィルター状態
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
-  const [selectedTag, setSelectedTag] = useState<string>('all')
-  const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'updated' | 'popular'>('newest')
+  const [selectedCategory, setSelectedCategory] = useState<string>(FILTER_ALL)
+  const [selectedTag, setSelectedTag] = useState<string>(FILTER_ALL)
+  const [sortBy, setSortBy] = useState<SortType>(SortType.NEWEST)
 
   // データ取得
   const categories = getCategories()
@@ -39,7 +40,7 @@ export const ArticlesPage = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:inset-ring-indigo-500"
             >
-              <option value="all">すべて</option>
+              <option value={FILTER_ALL}>すべて</option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
@@ -59,7 +60,7 @@ export const ArticlesPage = () => {
               onChange={(e) => setSelectedTag(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:inset-ring-indigo-500"
             >
-              <option value="all">すべて</option>
+              <option value={FILTER_ALL}>すべて</option>
               {mockTags.map((tag) => (
                 <option key={tag.id} value={tag.id}>
                   {tag.name}
@@ -76,13 +77,13 @@ export const ArticlesPage = () => {
             <select
               id="sort-filter"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'updated' | 'popular')}
+              onChange={(e) => setSortBy(e.target.value as SortType)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:inset-ring-indigo-500"
             >
-              <option value="newest">新着順</option>
-              <option value="oldest">古い順</option>
-              <option value="updated">更新日順</option>
-              <option value="popular">人気順</option>
+              <option value={SortType.NEWEST}>新着順</option>
+              <option value={SortType.OLDEST}>古い順</option>
+              <option value={SortType.UPDATED}>更新日順</option>
+              <option value={SortType.POPULAR}>人気順</option>
             </select>
           </div>
         </div>

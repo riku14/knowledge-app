@@ -1,3 +1,5 @@
+import type { ArticleStatus } from '../constants'
+
 // 記事投稿の型
 export interface Article {
   id: string
@@ -19,5 +21,5 @@ export interface Article {
   createdAt: string
   updatedAt?: string
   favoriteCount?: number
-  status?: 'published' | 'draft'
+  status?: ArticleStatus
 }

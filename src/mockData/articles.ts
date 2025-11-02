@@ -1,4 +1,5 @@
 import type { Article } from '../types'
+import { SortType, FILTER_ALL, ArticleStatus } from '../constants'
 
 export const mockArticles: Article[] = [
   {
@@ -22,7 +23,7 @@ export const mockArticles: Article[] = [
     createdAt: '2025-12-22T10:00:00Z',
     updatedAt: '2025-12-22T15:30:00Z',
     favoriteCount: 12,
-    status: 'published',
+    status: ArticleStatus.PUBLISHED,
   },
   {
     id: '2',
@@ -46,14 +47,14 @@ export const mockArticles: Article[] = [
     createdAt: '2025-12-22T10:00:00Z',
     updatedAt: '2025-12-25T15:30:00Z',
     favoriteCount: 5,
-    status: 'published',
+    status: ArticleStatus.DRAFT,
   },
 ]
 
 // ホーム画面用：最新の10件取得
 export const getRecentArticles = (limit: number = 10): Article[] => {
   return [...mockArticles]
-    .filter((article) => article.status === 'published' || !article.status)
+    .filter((article) => article.status === ArticleStatus.PUBLISHED || !article.status)
     .sort((a, b) => {
       const dateA = new Date(a.createdAt).getTime()
       const dateB = new Date(b.createdAt).getTime()
@@ -64,7 +65,9 @@ export const getRecentArticles = (limit: number = 10): Article[] => {
 
 // すべての記事を取得
 export const getAllArticles = (): Article[] => {
-  return [...mockArticles].filter((article) => article.status === 'published' || !article.status)
+  return [...mockArticles].filter(
+    (article) => article.status === ArticleStatus.PUBLISHED || !article.status
+  )
 }
 
 // カテゴリ一覧を取得
@@ -84,37 +87,37 @@ export const getCategories = () => {
 export const getFilteredArticles = (
   categoryId?: string,
   tagId?: string,
-  sortBy: 'newest' | 'oldest' | 'updated' | 'popular' = 'newest'
+  sortBy: SortType = SortType.NEWEST
 ): Article[] => {
   let filtered = getAllArticles()
 
   // カテゴリフィルター
-  if (categoryId && categoryId !== 'all') {
+  if (categoryId && categoryId !== FILTER_ALL) {
     filtered = filtered.filter((article) => article.category.id === categoryId)
   }
 
   // タグフィルター
-  if (tagId && tagId !== 'all') {
+  if (tagId && tagId !== FILTER_ALL) {
     filtered = filtered.filter((article) => article.tags.some((tag) => tag.id === tagId))
   }
 
   // ソート
   filtered.sort((a, b) => {
-    if (sortBy === 'newest') {
+    if (sortBy === SortType.NEWEST) {
       // 新着順: 作成日の降順
       const dateA = new Date(a.createdAt).getTime()
       const dateB = new Date(b.createdAt).getTime()
       return dateB - dateA
-    } else if (sortBy === 'oldest') {
+    } else if (sortBy === SortType.OLDEST) {
       // 古い順: 作成日の昇順
       const dateA = new Date(a.createdAt).getTime()
       const dateB = new Date(b.createdAt).getTime()
       return dateA - dateB
-    } else if (sortBy === 'updated') {
+    } else if (sortBy === SortType.UPDATED) {
       const dateA = new Date(a.updatedAt || a.createdAt).getTime()
       const dateB = new Date(b.updatedAt || b.createdAt).getTime()
       return dateB - dateA
-    } else if (sortBy === 'popular') {
+    } else if (sortBy === SortType.POPULAR) {
       // 人気順: お気に入り数の降順
       const countA = a.favoriteCount || 0
       const countB = b.favoriteCount || 0

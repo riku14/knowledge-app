@@ -46,6 +46,7 @@ export const mockArticles: Article[] = [
   },
 ]
 
+// ホーム画面用：最新の10件取得
 export const getRecentArticles = (limit: number = 10): Article[] => {
   return [...mockArticles]
     .filter((article) => article.status === 'published' || !article.status)
@@ -55,4 +56,51 @@ export const getRecentArticles = (limit: number = 10): Article[] => {
       return dateB - dateA
     })
     .slice(0, limit)
+}
+
+// すべての記事を取得
+export const getAllArticles = (): Article[] => {
+  return [...mockArticles].filter((article) => article.status === 'published' || !article.status)
+}
+
+// カテゴリ一覧を取得
+export const getCategories = () => {
+  const categoriesMap = new Map<string, { id: string; name: string }>()
+
+  mockArticles.forEach((article) => {
+    if (!categoriesMap.has(article.category.id)) {
+      categoriesMap.set(article.category.id, article.category)
+    }
+  })
+
+  return Array.from(categoriesMap.values())
+}
+
+// フィルターとソート
+export const getFilteredArticles = (
+  categoryId?: string,
+  // tagId?: string,
+  sortBy: 'newest' | 'oldest' = 'newest'
+): Article[] => {
+  let filtered = getAllArticles()
+
+  // カテゴリフィルター
+  if (categoryId && categoryId !== 'all') {
+    filtered = filtered.filter((article) => article.category.id === categoryId)
+  }
+
+  // TODO:タグフィルター
+
+  // ソート
+  filtered.sort((a, b) => {
+    const dateA = new Date(a.createdAt).getTime()
+    const dateB = new Date(b.createdAt).getTime()
+
+    if (sortBy === 'newest') {
+      return dateB - dateA
+    } else {
+      return dateA - dateB
+    }
+  })
+  return filtered
 }

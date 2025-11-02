@@ -10,4 +10,10 @@ export interface Article {
     id: string
     name: string
   }>
+  author: {
+    id: string
+    name: string
+    avatar?: string
+  }
+  createdAt: string
 }

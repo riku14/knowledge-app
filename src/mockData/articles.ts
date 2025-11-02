@@ -14,6 +14,12 @@ export const mockArticles: Article[] = [
       { id: '2', name: 'Java' },
       { id: '3', name: 'TypeScript' },
     ],
+    author: {
+      id: '1',
+      name: '山田 太郎',
+      avatar: undefined,
+    },
+    createdAt: '2025-12-22T10:00:00Z',
   },
   {
     id: '2',
@@ -29,5 +35,11 @@ export const mockArticles: Article[] = [
       { id: '6', name: 'データベース' },
       { id: '7', name: 'Node.js' },
     ],
+    author: {
+      id: '2',
+      name: '山本 花子',
+      avatar: 'https://via.placeholder.com/40',
+    },
+    createdAt: '2025-12-22T10:00:00Z',
   },
 ]

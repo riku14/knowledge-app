@@ -26,15 +26,15 @@ export default function LoginPage() {
 
   return (
     // TODO:ログイン承認機能
-    <div className=" flex flex-col items-center justify-center min-h-screen w-full bg-linear-to-bl from-violet-500 to-fuchsia-500">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-linear-to-bl from-violet-500 to-fuchsia-500">
       <h1 className="mb-4 text-3xl font-bold">ナレッジ共有サイト</h1>
       {/* ログインフォーム */}
-      <div className="w-full max-w-md bg-white shadow-2xl p-8 rounded-sm">
+      <div className="w-full max-w-md p-8 rounded-sm bg-white shadow-2xl">
         <h2 className="mb-2 text-xl font-bold">ログイン</h2>
 
         {/* エラーメッセージ */}
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-sm text-sm">{error}</div>
+          <div className="mb-4 p-3 rounded-sm bg-red-100 text-sm text-red-700">{error}</div>
         )}
 
         {/* 入力フォーム */}
@@ -44,7 +44,7 @@ export default function LoginPage() {
             type="text"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
-            className="mb-4 border border-gray-200 bg-white w-full rounded-sm p-2"
+            className="w-full p-2 mb-4 border border-gray-200 rounded-sm bg-white"
             placeholder="ユーザーIDを入力"
           />
           <p className="mb-1">パスワード</p>
@@ -52,13 +52,13 @@ export default function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mb-4 border border-gray-200 bg-white w-full rounded-sm p-2"
+            className="w-full p-2 mb-4 border border-gray-200 rounded-sm bg-white"
             placeholder="パスワードを入力"
           />
 
           <button
             type="submit"
-            className="bg-purple-400 border-none w-full py-2 mt-2 rounded-sm hover:bg-purple-300 transition-colors"
+            className="w-full py-2 mt-2 border-none rounded-sm bg-purple-400 hover:bg-purple-300 transition-colors"
           >
             ログイン
           </button>

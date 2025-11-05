@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ArticleCard } from '../components/ArticleCard'
 import { getCategories, getFilteredArticles, mockTags } from '../mockData'
 import { FILTER_ALL, SortType } from '../constants'
+import { calculatePagination } from '../utils'
+import { Pagination } from '../components/Pagination'
 
 export const ArticlesPage = () => {
   // フィルター状態
@@ -9,12 +11,36 @@ export const ArticlesPage = () => {
   const [selectedTag, setSelectedTag] = useState<string>(FILTER_ALL)
   const [sortBy, setSortBy] = useState<SortType>(SortType.NEWEST)
 
+  // ページネーション状態
+  const [currentPage, setCurrentPage] = useState<number>(1)
+
   // データ取得
   const categories = getCategories()
-  const articles = getFilteredArticles(selectedCategory, selectedTag, sortBy)
-  const articleCount = articles.length
+  const allArticles = getFilteredArticles(selectedCategory, selectedTag, sortBy)
+  const articleCount = allArticles.length
   // const articles = getRecentArticles(100)
 
+  // ページネーション計算
+  const ITEMS_PER_PAGE = 10
+  const paginationInfo = useMemo(
+    () => calculatePagination(articleCount, currentPage, ITEMS_PER_PAGE),
+    [articleCount, currentPage]
+  )
+
+  // 現在のページに表示する記事を取得
+  const displayedArticles = useMemo(() => {
+    return allArticles.slice(paginationInfo.startIndex, paginationInfo.endIndex)
+  }, [allArticles, paginationInfo.startIndex, paginationInfo.endIndex])
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category)
+    setCurrentPage(1)
+  }
+
+  const handleTagChange = (tag: string) => {
+    setSelectedTag(tag)
+    setCurrentPage(1)
+  }
   return (
     <div className="container mx-auto px-4 py-6 max-w-7xl">
       {/* タイトル & 件数 */}
@@ -37,7 +63,7 @@ export const ArticlesPage = () => {
             <select
               id="category-filter"
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => handleCategoryChange(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:inset-ring-indigo-500"
             >
               <option value={FILTER_ALL}>すべて</option>
@@ -57,7 +83,7 @@ export const ArticlesPage = () => {
             <select
               id="tag-filter"
               value={selectedTag}
-              onChange={(e) => setSelectedTag(e.target.value)}
+              onChange={(e) => handleTagChange(e.target.value)}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:inset-ring-indigo-500"
             >
               <option value={FILTER_ALL}>すべて</option>
@@ -91,10 +117,17 @@ export const ArticlesPage = () => {
 
       {/* 記事カード */}
       <div className="space-y-4">
-        {articles.map((article) => (
+        {displayedArticles.map((article) => (
           <ArticleCard key={article.id} article={article} />
         ))}
       </div>
+
+      {/* ページネーション */}
+      <Pagination
+        currentPage={paginationInfo.currentPage}
+        totalPages={paginationInfo.totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   )
 }

@@ -13,7 +13,7 @@ export const TagRanking = ({ tags }: TagRankingProps) => {
   }
 
   return (
-    <div className="rounded-lg bg-linear-to-bl from-violet-500 to-fuchsia-500 p-4 shadow-md">
+    <div className="rounded-lg bg-gradient-to-bl from-violet-500 to-fuchsia-500 p-4 shadow-md">
       {/* タイトル */}
       <h3 className="mb-4 text-lg font-bold text-gray-900">人気のタグ</h3>
       {/* タグリスト */}

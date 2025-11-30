@@ -1,21 +1,51 @@
-// 記事投稿の型
+import type { ArticleStatus, ArticleScope } from '../constants'
+import type { Comment } from './comment'
+
+/**
+ * 記事カードの型
+ */
 export interface Article {
+  /** 記事ID */
   id: string
+  /** 記事タイトル */
   title: string
+  /** 記事コンテンツ */
   content: string
+  /** カテゴリ */
   category: {
+    /** カテゴリID */
     id: string
+    /** カテゴリ名 */
     name: string
   }
+  /** タグ */
   tags: Array<{
+    /** タグID */
     id: string
+    /** タグ名 */
     name: string
   }>
+  /** 投稿者情報 */
   author: {
+    /** 投稿者ID */
     id: string
+    /** 投稿者名 */
     name: string
+    /** 投稿者プロフィール画像パス */
     avatar?: string
   }
+  /** 作成日 */
   createdAt: string
-  status?: 'published' | 'draft'
+  /** 更新日 */
+  updatedAt?: string
+  /** いいね数 */
+  favoriteCount?: number
+  /** ステータス */
+  status?: ArticleStatus
+  /** 公開範囲 */
+  scope?: ArticleScope
+  /** チームID（チーム限定の場合のみ） */
+  teamId?: string
+  /** コメント */
+  comments?: Array<Comment>
 }

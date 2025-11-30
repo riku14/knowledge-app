@@ -75,6 +75,30 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-22T15:30:00Z',
     favoriteCount: 12,
     status: ArticleStatus.PUBLISHED,
+    comments: [
+      {
+        id: 'comment1',
+        articleId: '1',
+        user: {
+          id: '2',
+          name: '山本 花子',
+          avatar: 'https://via.placeholder.com/40',
+        },
+        content: 'とても参考になりました！特にサニタイズ処理の部分が勉強になりました。',
+        createdAt: '2025-12-22T11:00:00Z',
+      },
+      {
+        id: 'comment2',
+        articleId: '1',
+        user: {
+          id: '3',
+          name: '佐藤 健一',
+          avatar: undefined,
+        },
+        content: 'Reactの自動エスケープについて、もう少し詳しく知りたいです。',
+        createdAt: '2025-12-22T12:30:00Z',
+      },
+    ],
   },
   {
     id: '2',
@@ -99,6 +123,30 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-25T15:30:00Z',
     favoriteCount: 5,
     status: ArticleStatus.PUBLISHED,
+    comments: [
+      {
+        id: 'comment1',
+        articleId: '1',
+        user: {
+          id: '2',
+          name: '山本 花子',
+          avatar: 'https://via.placeholder.com/40',
+        },
+        content: 'とても参考になりました！特にサニタイズ処理の部分が勉強になりました。',
+        createdAt: '2025-12-22T11:00:00Z',
+      },
+      {
+        id: 'comment2',
+        articleId: '1',
+        user: {
+          id: '3',
+          name: '佐藤 健一',
+          avatar: undefined,
+        },
+        content: 'Reactの自動エスケープについて、もう少し詳しく知りたいです。',
+        createdAt: '2025-12-22T12:30:00Z',
+      },
+    ],
   },
   {
     id: '3',
@@ -124,6 +172,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-21T14:20:00Z',
     favoriteCount: 28,
     status: ArticleStatus.PUBLISHED,
+    comments: [],
   },
   {
     id: '4',
@@ -148,6 +197,30 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-19T16:45:00Z',
     favoriteCount: 45,
     status: ArticleStatus.PUBLISHED,
+    comments: [
+      {
+        id: 'comment1',
+        articleId: '1',
+        user: {
+          id: '2',
+          name: '山本 花子',
+          avatar: 'https://via.placeholder.com/40',
+        },
+        content: 'とても参考になりました！特にサニタイズ処理の部分が勉強になりました。',
+        createdAt: '2025-12-22T11:00:00Z',
+      },
+      {
+        id: 'comment2',
+        articleId: '1',
+        user: {
+          id: '3',
+          name: '佐藤 健一',
+          avatar: undefined,
+        },
+        content: 'Reactの自動エスケープについて、もう少し詳しく知りたいです。',
+        createdAt: '2025-12-22T12:30:00Z',
+      },
+    ],
   },
   {
     id: '5',
@@ -173,6 +246,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-16T10:10:00Z',
     favoriteCount: 67,
     status: ArticleStatus.PUBLISHED,
+    comments: [],
   },
   {
     id: '6',
@@ -222,6 +296,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-11T11:25:00Z',
     favoriteCount: 52,
     status: ArticleStatus.PUBLISHED,
+    comments: [],
   },
   {
     id: '8',
@@ -246,6 +321,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-09T09:15:00Z',
     favoriteCount: 19,
     status: ArticleStatus.PUBLISHED,
+    comments: [],
   },
   {
     id: '9',
@@ -296,6 +372,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-04T13:40:00Z',
     favoriteCount: 73,
     status: ArticleStatus.PUBLISHED,
+    comments: [],
   },
   {
     id: '11',
@@ -346,6 +423,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-11-30T10:20:00Z',
     favoriteCount: 38,
     status: ArticleStatus.DRAFT,
+    comments: [],
   },
 ]
 

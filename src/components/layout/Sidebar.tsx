@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router'
 import { menuItems } from '../../constants'
 import CloseIcon from '@mui/icons-material/Close'
-import ViewSidebarIcon from '@mui/icons-material/ViewSidebar'
+import MenuIcon from '@mui/icons-material/Menu'
 
 interface SidebarProps {
   isOpen: boolean
@@ -65,7 +65,7 @@ export const Sidebar = ({ isOpen, onClose, onToggle }: SidebarProps) => {
             className="p-2 rounded text-gray-600 hover:bg-gray-100"
             aria-label="サイドバーを開く"
           >
-            <ViewSidebarIcon className="h-6 w-6" />
+            <MenuIcon className="h-6 w-6" />
           </button>
         </div>
       )}

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router'
 import type { Article } from '../types'
-import { getCategoryColor } from '../utils'
+import { getCategoryColor, formatDate } from '../utils'
 
 export interface ArticleCardProps {
   article: Article
@@ -14,15 +14,6 @@ export const ArticleCard = ({ article }: ArticleCardProps) => {
     navigate(`/articles/${article.id}`)
   }
 
-  // 日付フォーマット関数
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  }
   return (
     <div
       className="mb-3 p-6 bg-white rounded-lg shadow-md cursor-pointer hover:bg-gray-100 duration-300"

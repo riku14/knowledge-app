@@ -1,4 +1,5 @@
 import type { ArticleStatus } from '../constants'
+import type { Comment } from './comment'
 
 /**
  * 記事カードの型
@@ -41,4 +42,6 @@ export interface Article {
   favoriteCount?: number
   /** ステータス */
   status?: ArticleStatus
+  /** コメント */
+  comments?: Array<Comment>
 }

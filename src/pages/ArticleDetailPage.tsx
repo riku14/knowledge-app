@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Navigate, useParams, useNavigate } from 'react-router'
 import { getArticleById } from '../mockData'
-import { getCategoryColor, markdownToHtml } from '../utils'
+import { getCategoryColor, markdownToHtml, formatDate } from '../utils'
+import { CommentList } from '../components/CommentList'
 import 'prismjs/themes/prism-tomorrow.css'
 
 export const ArticleDetailPage = () => {
@@ -28,28 +29,6 @@ export const ArticleDetailPage = () => {
       </div>
     )
   }
-
-  // 日付フォーマット関数
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  }
-
-  // 日時フォーマット関数
-  // const formatDateTime = (dateString: string): string => {
-  //   const date = new Date(dateString)
-  //   return date.toLocaleString('ja-JP', {
-  //     year: 'numeric',
-  //     month: 'long',
-  //     day: 'numeric',
-  //     hour: '2-digit',
-  //     minute: '2-digit',
-  //   })
-  // }
 
   // TODO: 後でAuthContextから取得するように変更
   const getCurrentUserId = (): string => {
@@ -79,6 +58,12 @@ export const ArticleDetailPage = () => {
       // 削除後、記事一覧画面へ遷移
       navigate('/articles')
     }
+  }
+  // 【追加】コメント削除処理
+  const handleDeleteComment = (commentId: string) => {
+    // TODO: 後でAPI呼び出しに変更
+    console.log('コメントを削除:', commentId)
+    // モックデータから削除する処理（後で実装）
   }
 
   const htmlContent = markdownToHtml(article.content)
@@ -210,6 +195,14 @@ export const ArticleDetailPage = () => {
         className="mb-8 prose prose-lg max-w-none"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       ></div>
+
+      {/* コメント一覧 */}
+      <CommentList
+        comments={article.comments || []}
+        currentUserId={currentUserId}
+        articleAuthorId={article.author.id}
+        onDelete={handleDeleteComment}
+      />
     </div>
   )
 }

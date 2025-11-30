@@ -5,7 +5,58 @@ export const mockArticles: Article[] = [
   {
     id: '1',
     title: 'テスト記事',
-    content: 'これはテスト記事の内容です。',
+    content: `# React の XSS対策について
+
+## 概要
+
+この記事では、ReactアプリケーションにおけるXSS（クロスサイトスクリプティング）対策について説明します。
+
+## XSSとは
+
+XSSは、悪意のあるスクリプトをWebページに注入して実行させる攻撃です。
+
+### 主な種類
+
+1. **反射型XSS（Reflected XSS）**
+   - URLパラメータに含まれたコードがそのまま表示される
+
+2. **蓄積型XSS（Stored XSS）**
+   - データベースに保存されたコードが後から表示される
+
+3. **DOM型XSS（DOM-based XSS）**
+   - JavaScriptでDOMを操作する際に発生
+
+## 対策方法
+
+### 1. サニタイズ処理
+
+\`\`\`typescript
+import DOMPurify from 'dompurify'
+
+const sanitizedHtml = DOMPurify.sanitize(html)
+\`\`\`
+
+### 2. Reactの自動エスケープ
+
+Reactはデフォルトでテキストをエスケープします：
+
+\`\`\`tsx
+<div>{userInput}</div>  // 安全
+\`\`\`
+
+### 注意点
+
+> **警告**: \`dangerouslySetInnerHTML\`を使用する場合は、必ずサニタイズ処理を実施してください。
+
+## まとめ
+
+- XSS対策は必須
+- サニタイズ処理を忘れずに
+- Reactの機能を正しく理解する
+
+---
+
+参考: [MDN Web Docs](https://developer.mozilla.org/)`,
     category: {
       id: '1',
       name: '技術ドキュメント',

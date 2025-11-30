@@ -1,13 +1,17 @@
+import { useNavigate } from 'react-router'
 import type { Article } from '../types'
+import { getCategoryColor } from '../utils'
 
 export interface ArticleCardProps {
   article: Article
 }
 
 export const ArticleCard = ({ article }: ArticleCardProps) => {
-  // TODO:カテゴリの色分け
-  const getCategoryColor = (): string => {
-    return 'bg-blue-100 text-blue-800'
+  const navigate = useNavigate()
+
+  // 記事詳細画面遷移ハンドラー関数
+  const handleCardClick = () => {
+    navigate(`/articles/${article.id}`)
   }
 
   // 日付フォーマット関数
@@ -20,11 +24,16 @@ export const ArticleCard = ({ article }: ArticleCardProps) => {
     })
   }
   return (
-    <div className="mb-3 p-6 bg-white rounded-lg shadow-md">
+    <div
+      className="mb-3 p-6 bg-white rounded-lg shadow-md cursor-pointer hover:bg-gray-100 duration-300"
+      onClick={handleCardClick}
+    >
       {/* カテゴリ + タグ */}
       <div className="flex flex-wrap items-center gap-2 mb-3">
         {/* カテゴリ */}
-        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getCategoryColor()}`}>
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${getCategoryColor(article.category.id)}`}
+        >
           {article.category.name}
         </span>
         {/* タグ */}

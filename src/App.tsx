@@ -4,6 +4,8 @@ import { HomePage } from './pages/HomePage'
 import { Layout } from './components/layout/Layout'
 import { ArticlesPage } from './pages/ArticlesPage'
 import { ArticleDetailPage } from './pages/ArticleDetailPage'
+import { ArticleCreatePage } from './pages/ArticleCreatePage'
+import { ArticleEditPage } from './pages/ArticleEditPage'
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/articles/new" element={<ArticleCreatePage />} />
           <Route path="/articles/:id" element={<ArticleDetailPage />} />
+          <Route path="/articles/:id/edit" element={<ArticleEditPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

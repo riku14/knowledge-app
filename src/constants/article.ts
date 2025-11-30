@@ -14,6 +14,7 @@ export const FILTER_ALL = 'all' as const
 export const ArticleStatus = {
   PUBLISHED: 'published',
   DRAFT: 'draft',
+  PENDING: 'pending',
 } as const
 
 export type ArticleStatus = (typeof ArticleStatus)[keyof typeof ArticleStatus]

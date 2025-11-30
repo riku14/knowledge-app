@@ -4,6 +4,7 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
+  { path: '/articles/new', label: '記事作成' },
   { path: '/home', label: 'ホーム' },
   { path: '/articles', label: '記事一覧' },
   // { path: '/tags', label: 'タグ管理' },

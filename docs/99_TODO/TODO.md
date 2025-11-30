@@ -19,10 +19,27 @@
   - ArticleCardにクリック遷移追加 ✅
   - コメント一覧表示 ✅
   - 権限チェック機能（編集・削除ボタン、コメント削除） ✅
+  - コメント投稿機能 ✅
+  - コメント削除機能 ✅
+  - 公開範囲バッジ表示 ✅
+- **記事作成・編集画面**
+  - ルーティング追加 ✅
+  - 記事作成ページコンポーネント作成 ✅
+  - 入力フォーム実装 ✅
+  - Markdownエディタコンポーネント作成 ✅
+  - プレビュー機能実装 ✅
+  - バリデーション実装 ✅
+  - 保存・投稿機能実装 ✅
+  - 記事編集機能実装 ✅
 - **共通ユーティリティ**
   - カテゴリ色分け関数（共通化） ✅
   - Markdown変換関数 ✅
   - 日付フォーマット関数（共通化） ✅
+- **コンポーネント**
+  - CommentFormコンポーネント ✅
+  - MarkdownEditorコンポーネント ✅
+  - MarkdownPreviewコンポーネント ✅
+  - ScopeBadgeコンポーネント ✅
 
 ### ❌ 未実装
 以下に詳細を記載
@@ -34,7 +51,7 @@
 ### 1. 記事詳細画面の実装
 **優先度**: 🔴 最高  
 **URL**: `/articles/:id`  
-**進捗状況**: 🟡 80% 完了
+**進捗状況**: ✅ 100% 完了
 
 **実装ステップ**:
 
@@ -58,14 +75,14 @@
    - タイトル表示
    - 投稿者情報（アバター、名前、日時）
    - アクションボタン（お気に入り、編集、削除）
-   - ❌ 公開範囲バッジ（未実装）
+   - ✅ 公開範囲バッジ（ScopeBadgeコンポーネント）
 
-5. 🟡 **コメント機能の実装**
+5. ✅ **コメント機能の実装**
    - ✅ コメント一覧表示（CommentListコンポーネント）
    - ✅ コメント削除ボタン（権限チェック付き）
-   - ❌ コメント入力欄（CommentFormコンポーネント未実装）
-   - ❌ コメント投稿機能（未実装）
-   - ❌ コメント削除機能の実装（モックデータからの削除処理未実装）
+   - ✅ コメント入力欄（CommentFormコンポーネント）
+   - ✅ コメント投稿機能（addComment関数）
+   - ✅ コメント削除機能の実装（deleteComment関数）
 
 6. ✅ **ArticleCardにクリック遷移を追加**
    - 記事カードをクリック可能にする
@@ -77,36 +94,37 @@
    - コメント削除：投稿者または記事作者のみ表示
 
 **残作業**:
-- コメント投稿機能の実装（CommentFormコンポーネント作成）
-- コメント削除機能の実装（モックデータからの削除処理）
-- 公開範囲バッジの表示
+なし（すべて実装完了）
 
 **関連ファイル**:
 - ✅ `src/pages/ArticleDetailPage.tsx` (実装済み)
 - ✅ `src/components/CommentList.tsx` (実装済み)
+- ✅ `src/components/CommentForm.tsx` (実装済み)
+- ✅ `src/components/ScopeBadge.tsx` (実装済み)
 - ✅ `src/types/comment.ts` (実装済み)
 - ✅ `src/utils/markdown.ts` (実装済み)
 - ✅ `src/utils/category.ts` (実装済み)
 - ✅ `src/utils/date.ts` (実装済み)
-- ✅ `src/mockData/articles.ts` (拡張済み：コメントデータ追加)
-- ❌ `src/components/CommentForm.tsx` (未実装)
+- ✅ `src/mockData/articles.ts` (拡張済み：コメントデータ追加、addComment/deleteComment関数追加)
 
 ---
 
 ### 2. 記事作成・編集画面の実装
 **優先度**: 🔴 最高  
 **URL**: `/articles/new` (新規), `/articles/:id/edit` (編集)  
+**進捗状況**: ✅ 100% 完了
+
 **実装ステップ**:
 
-1. **ルーティング追加**
+1. ✅ **ルーティング追加**
    - 記事作成ルートを追加
    - 記事編集ルートを追加
 
-2. **記事作成ページコンポーネント作成**
+2. ✅ **記事作成ページコンポーネント作成**
    - `src/pages/ArticleCreatePage.tsx`を作成
    - レスポンシブ対応（PC: 2カラム、モバイル: タブ切り替え）
 
-3. **入力フォーム実装**
+3. ✅ **入力フォーム実装**
    - タイトル入力欄（必須）
    - カテゴリセレクト（必須）
    - タグ選択（複数選択可能）
@@ -114,41 +132,47 @@
    - チームセレクト（チーム内限定時のみ表示）
    - Markdownエディタ（ツールバー付き）
 
-4. **Markdownエディタコンポーネント作成**
+4. ✅ **Markdownエディタコンポーネント作成**
    - `src/components/MarkdownEditor.tsx`を作成
    - ツールバー実装（太字、斜体、見出し、リンク、コード、リスト等）
-   - リアルタイムプレビュー機能
+   - カーソル位置へのテキスト挿入機能
 
-5. **プレビュー機能実装**
-   - リアルタイムでMarkdownをレンダリング
+5. ✅ **プレビュー機能実装**
+   - リアルタイムでMarkdownをレンダリング（MarkdownPreviewコンポーネント）
    - シンタックスハイライト適用
    - PC版：右側に固定表示
    - モバイル版：タブ切り替え
 
-6. **バリデーション実装**
+6. ✅ **バリデーション実装**
    - タイトル：必須チェック
    - カテゴリ：必須チェック
    - 本文：投稿時のみ必須
    - チーム：チーム内限定時のみ必須
+   - エラーメッセージ表示
 
-7. **保存・投稿機能実装**
+7. ✅ **保存・投稿機能実装**
    - 下書き保存（タイトルのみ必須）
    - 投稿機能（全体公開：承認待ち、チーム内限定：公開）
-   - 成功時のトースト通知
+   - 成功時のアラート通知
    - 失敗時のエラーハンドリング
+   - 保存中のローディング状態表示
 
-8. **記事編集機能実装**
+8. ✅ **記事編集機能実装**
    - `src/pages/ArticleEditPage.tsx`を作成
    - 既存記事データの読み込み
    - 権限チェック（投稿者のみ編集可能）
-   - 更新処理の実装
+   - 更新処理の実装（updateArticle関数）
+
+**残作業**:
+なし（すべて実装完了）
 
 **関連ファイル**:
-- `src/pages/ArticleCreatePage.tsx` (新規)
-- `src/pages/ArticleEditPage.tsx` (新規)
-- `src/components/MarkdownEditor.tsx` (新規)
-- `src/components/MarkdownPreview.tsx` (新規)
-- `src/components/MarkdownToolbar.tsx` (新規)
+- ✅ `src/pages/ArticleCreatePage.tsx` (実装済み)
+- ✅ `src/pages/ArticleEditPage.tsx` (実装済み)
+- ✅ `src/components/MarkdownEditor.tsx` (実装済み)
+- ✅ `src/components/MarkdownPreview.tsx` (実装済み)
+- ✅ `src/mockData/articles.ts` (拡張済み：createArticle/updateArticle関数追加)
+- ✅ `src/constants/article.ts` (拡張済み：ArticleStatus.PENDING追加)
 
 ---
 

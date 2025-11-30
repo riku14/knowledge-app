@@ -40,20 +40,44 @@ export const Sidebar = ({ isOpen, onClose, onToggle }: SidebarProps) => {
         </div>
         <nav className="p-4">
           <ul className="space-y-2">
-            {menuItems.map((item) => (
-              <li key={item.path}>
-                <button
-                  onClick={() => navigate(item.path)}
-                  className={`w-full text-left px-4 py-2 rounded ${
-                    location.pathname === item.path
-                      ? 'bg-purple-100 text-purple-700'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
+            {menuItems.map((item) => {
+              const isActive = location.pathname === item.path
+              const isCreatePage = item.path === '/articles/new'
+              
+              return (
+                <li key={item.path}>
+                  <button
+                    onClick={() => navigate(item.path)}
+                    className={`w-full text-left px-4 py-2 rounded transition-colors ${
+                      isCreatePage
+                        ? isActive
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-purple-500 text-white hover:bg-purple-600'
+                        : isActive
+                          ? 'bg-purple-100 text-purple-700'
+                          : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    {isCreatePage && (
+                      <svg
+                        className="inline-block mr-2 h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4v16m8-8H4"
+                        />
+                      </svg>
+                    )}
+                    {item.label}
+                  </button>
+                </li>
+              )
+            })}
           </ul>
         </nav>
       </aside>
@@ -89,22 +113,46 @@ export const Sidebar = ({ isOpen, onClose, onToggle }: SidebarProps) => {
         </div>
         <nav className="p-4">
           <ul className="space-y-2">
-            {menuItems.map((item) => (
-              <li key={item.path}>
-                <button
-                  onClick={() => handleNavigate(item.path)}
-                  className={`w-full text-left px-4 py-2 rounded ${
-                    location.pathname === item.path
-                      ? 'bg-purple-100 text-purple-700'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
+            {menuItems.map((item) => {
+              const isActive = location.pathname === item.path
+              const isCreatePage = item.path === '/articles/new'
+              
+              return (
+                <li key={item.path}>
+                  <button
+                    onClick={() => handleNavigate(item.path)}
+                    className={`w-full text-left px-4 py-2 rounded transition-colors ${
+                      isCreatePage
+                        ? isActive
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-blue-500 text-white hover:bg-blue-600'
+                        : isActive
+                          ? 'bg-purple-100 text-purple-700'
+                          : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    {isCreatePage && (
+                      <svg
+                        className="inline-block mr-2 h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4v16m8-8H4"
+                        />
+                      </svg>
+                    )}
+                    {item.label}
+                  </button>
+                </li>
+              )
+            })}
           </ul>
-        </nav>{' '}
+        </nav>
       </aside>
     </>
   )

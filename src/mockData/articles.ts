@@ -602,3 +602,112 @@ export const deleteComment = (articleId: string, commentId: string): boolean => 
 
   return true
 }
+
+/**
+ * 記事を作成する
+ * @param articleData - 記事データ
+ * @returns 作成された記事
+ */
+export const createArticle = (articleData: {
+  title: string
+  content: string
+  categoryId: string
+  tagIds: string[]
+  scope: 'public' | 'team'
+  teamId?: string
+  status: ArticleStatus
+  userId: string
+}): Article => {
+  // 新しい記事IDを生成
+  const articleId = `article-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
+  // カテゴリ情報を取得
+  const category = mockArticles.find((a) => a.category.id === articleData.categoryId)?.category
+  if (!category) {
+    throw new Error('カテゴリが見つかりません')
+  }
+
+  // タグ情報を取得
+  const tags = articleData.tagIds
+    .map((tagId) => {
+      const article = mockArticles.find((a) => a.tags.some((t) => t.id === tagId))
+      return article?.tags.find((t) => t.id === tagId)
+    })
+    .filter((tag): tag is { id: string; name: string } => tag !== undefined)
+
+  // 現在のユーザー情報を取得
+  const user = getCurrentUserInfo(articleData.userId)
+
+  // 新しい記事を作成
+  const newArticle: Article = {
+    id: articleId,
+    title: articleData.title,
+    content: articleData.content,
+    category,
+    tags,
+    author: user,
+    createdAt: new Date().toISOString(),
+    favoriteCount: 0,
+    status: articleData.status,
+    scope: articleData.scope,
+    teamId: articleData.scope === 'team' ? articleData.teamId : undefined,
+    comments: [],
+  }
+
+  // 記事を追加
+  mockArticles.unshift(newArticle)
+
+  return newArticle
+}
+
+/**
+ * 記事を更新する
+ * @param articleId - 記事ID
+ * @param articleData - 更新する記事データ
+ * @returns 更新された記事、またはnull（記事が見つからない場合）
+ */
+export const updateArticle = (
+  articleId: string,
+  articleData: {
+    title: string
+    content: string
+    categoryId: string
+    tagIds: string[]
+    scope: 'public' | 'team'
+    teamId?: string
+    status?: ArticleStatus
+  }
+): Article | null => {
+  const article = mockArticles.find((a) => a.id === articleId)
+  if (!article) {
+    return null
+  }
+
+  // カテゴリ情報を取得
+  const category = mockArticles.find((a) => a.category.id === articleData.categoryId)?.category
+  if (!category) {
+    throw new Error('カテゴリが見つかりません')
+  }
+
+  // タグ情報を取得
+  const tags = articleData.tagIds
+    .map((tagId) => {
+      const article = mockArticles.find((a) => a.tags.some((t) => t.id === tagId))
+      return article?.tags.find((t) => t.id === tagId)
+    })
+    .filter((tag): tag is { id: string; name: string } => tag !== undefined)
+
+  // 記事を更新
+  article.title = articleData.title
+  article.content = articleData.content
+  article.category = category
+  article.tags = tags
+  article.scope = articleData.scope
+  article.teamId = articleData.scope === 'team' ? articleData.teamId : undefined
+  article.updatedAt = new Date().toISOString()
+  if (articleData.status) {
+    article.status = articleData.status
+  }
+
+  return article
+}

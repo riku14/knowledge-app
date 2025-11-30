@@ -295,7 +295,7 @@ export const MarkdownEditor = ({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="w-full rounded-b-lg border-0 px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-200 font-mono resize-none"
+        className="w-full min-h-[400px] rounded-b-lg border-0 px-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-200 font-mono resize-y"
       />
     </div>
   )

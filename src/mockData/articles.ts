@@ -1,5 +1,5 @@
-import type { Article } from '../types'
-import { SortType, FILTER_ALL, ArticleStatus } from '../constants'
+import type { Article, Comment } from '../types'
+import { SortType, FILTER_ALL, ArticleStatus, ArticleScope } from '../constants'
 
 export const mockArticles: Article[] = [
   {
@@ -75,6 +75,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-22T15:30:00Z',
     favoriteCount: 12,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
     comments: [
       {
         id: 'comment1',
@@ -123,6 +124,8 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-25T15:30:00Z',
     favoriteCount: 5,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.TEAM,
+    teamId: 'team1',
     comments: [
       {
         id: 'comment1',
@@ -172,6 +175,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-21T14:20:00Z',
     favoriteCount: 28,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
     comments: [],
   },
   {
@@ -197,6 +201,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-19T16:45:00Z',
     favoriteCount: 45,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
     comments: [
       {
         id: 'comment1',
@@ -246,6 +251,8 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-16T10:10:00Z',
     favoriteCount: 67,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.TEAM,
+    teamId: 'team2',
     comments: [],
   },
   {
@@ -271,6 +278,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-14T17:30:00Z',
     favoriteCount: 34,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
   },
   {
     id: '7',
@@ -296,6 +304,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-11T11:25:00Z',
     favoriteCount: 52,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
     comments: [],
   },
   {
@@ -321,6 +330,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-09T09:15:00Z',
     favoriteCount: 19,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
     comments: [],
   },
   {
@@ -347,6 +357,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: undefined,
     favoriteCount: 41,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
   },
   {
     id: '10',
@@ -372,6 +383,8 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-04T13:40:00Z',
     favoriteCount: 73,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.TEAM,
+    teamId: 'team1',
     comments: [],
   },
   {
@@ -398,6 +411,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-12-02T16:50:00Z',
     favoriteCount: 56,
     status: ArticleStatus.PUBLISHED,
+    scope: ArticleScope.PUBLIC,
   },
   {
     id: '12',
@@ -423,6 +437,7 @@ Reactはデフォルトでテキストをエスケープします：
     updatedAt: '2025-11-30T10:20:00Z',
     favoriteCount: 38,
     status: ArticleStatus.DRAFT,
+    scope: ArticleScope.PUBLIC,
     comments: [],
   },
 ]
@@ -507,4 +522,83 @@ export const getFilteredArticles = (
 
 export const getArticleById = (id: string): Article | undefined => {
   return mockArticles.find((article) => article.id === id)
+}
+
+/**
+ * 現在のユーザー情報を取得する（仮実装）
+ * TODO: 後でAuthContextから取得するように変更
+ */
+const getCurrentUserInfo = (userId: string): { id: string; name: string; avatar?: string } => {
+  // 簡易的な実装：ユーザーIDから名前を取得
+  const userMap: Record<string, { name: string; avatar?: string }> = {
+    '1': { name: '山田 太郎', avatar: undefined },
+    '2': { name: '山本 花子', avatar: 'https://via.placeholder.com/40' },
+    '3': { name: '佐藤 健一', avatar: undefined },
+    '4': { name: '鈴木 美咲', avatar: 'https://via.placeholder.com/40' },
+  }
+  const userInfo = userMap[userId] || { name: '匿名ユーザー', avatar: undefined }
+  return { id: userId, ...userInfo }
+}
+
+/**
+ * コメントを追加する
+ * @param articleId - 記事ID
+ * @param content - コメント内容
+ * @param userId - 投稿者ID
+ * @returns 作成されたコメント
+ */
+export const addComment = (articleId: string, content: string, userId: string): Comment | null => {
+  const article = mockArticles.find((a) => a.id === articleId)
+  if (!article) {
+    return null
+  }
+
+  // 新しいコメントIDを生成
+  const commentId = `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+
+  // 現在のユーザー情報を取得
+  const user = getCurrentUserInfo(userId)
+
+  // 新しいコメントを作成
+  const newComment: Comment = {
+    id: commentId,
+    articleId,
+    user,
+    content: content.trim(),
+    createdAt: new Date().toISOString(),
+  }
+
+  // 記事のcomments配列を初期化（存在しない場合）
+  if (!article.comments) {
+    article.comments = []
+  }
+
+  // コメントを追加
+  article.comments.push(newComment)
+
+  return newComment
+}
+
+/**
+ * コメントを削除する
+ * @param articleId - 記事ID
+ * @param commentId - コメントID
+ * @returns 削除に成功した場合true、失敗した場合false
+ */
+export const deleteComment = (articleId: string, commentId: string): boolean => {
+  const article = mockArticles.find((a) => a.id === articleId)
+  if (!article || !article.comments) {
+    return false
+  }
+
+  // コメントのインデックスを検索
+  const commentIndex = article.comments.findIndex((comment) => comment.id === commentId)
+  if (commentIndex === -1) {
+    return false
+  }
+
+  // コメントを削除
+  article.comments.splice(commentIndex, 1)
+
+  return true
 }

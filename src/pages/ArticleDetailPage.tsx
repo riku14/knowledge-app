@@ -1,22 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate, useParams, useNavigate } from 'react-router'
-import { getArticleById } from '../mockData'
+import { addComment, getArticleById, deleteComment } from '../mockData'
 import { getCategoryColor, markdownToHtml, formatDate } from '../utils'
 import { CommentList } from '../components/CommentList'
 import 'prismjs/themes/prism-tomorrow.css'
+import { CommentForm } from '../components/CommentForm'
+import { ScopeBadge } from '../components/ScopeBadge'
+import type { Article } from '../types'
 
 export const ArticleDetailPage = () => {
   const [isFavorite, setIsFavorite] = useState(false)
+  const [article, setArticle] = useState<Article | undefined>(undefined)
+
   const navigate = useNavigate()
 
   const { id } = useParams<{ id: string }>()
 
+  // 記事IDが変更されたときに記事データを取得
+  useEffect(() => {
+    if (id) {
+      const fetchedArticle = getArticleById(id)
+      setArticle(fetchedArticle)
+    }
+  }, [id])
+
   if (!id) {
     return <Navigate to="/articles" replace />
   }
-
-  // モックデータから記事を取得
-  const article = getArticleById(id)
 
   // 記事が見つからない場合
   if (!article) {
@@ -59,24 +69,50 @@ export const ArticleDetailPage = () => {
       navigate('/articles')
     }
   }
-  // 【追加】コメント削除処理
+
+  // コメント削除処理
   const handleDeleteComment = (commentId: string) => {
-    // TODO: 後でAPI呼び出しに変更
-    console.log('コメントを削除:', commentId)
-    // モックデータから削除する処理（後で実装）
+    if (window.confirm('このコメントを削除してもよろしいですか？')) {
+      const success = deleteComment(article.id, commentId)
+      if (success) {
+        // 記事データを再取得してコメント一覧を更新
+        const updatedArticle = getArticleById(article.id)
+        if (updatedArticle) {
+          setArticle(updatedArticle)
+        }
+      } else {
+        console.error('コメントの削除に失敗しました')
+        // TODO: エラーメッセージを表示
+      }
+    }
   }
 
+  // コメント投稿処理
+  const handleCommentSubmit = (content: string) => {
+    const newComment = addComment(article.id, content, currentUserId)
+    if (newComment) {
+      // 記事データを再取得してコメント一覧を更新
+      const updatedArticle = getArticleById(article.id)
+      if (updatedArticle) {
+        setArticle(updatedArticle)
+      }
+    }
+  }
   const htmlContent = markdownToHtml(article.content)
 
   return (
     <div className="container mx-auto px-4 py-6 max-w-7xl">
-      {/* カテゴリバッジ */}
-      <div className="mb-4">
+      {/* カテゴリバッジと公開範囲バッジ */}
+      <div className="mb-4 flex items-center gap-2">
         <span
           className={`px-3 py-1 rounded-full text-xs font-semibold ${getCategoryColor(article.category.id)}`}
         >
           {article.category.name}
         </span>
+        {/* 公開範囲バッジ */}
+        {article.scope && (
+          <ScopeBadge scope={article.scope} teamName={article.teamId ? `チーム${article.teamId}` : undefined} />
+        )}
       </div>
 
       {/* タグ一覧 */}
@@ -195,6 +231,9 @@ export const ArticleDetailPage = () => {
         className="mb-8 prose prose-lg max-w-none"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       ></div>
+
+      {/* コメント投稿フォーム */}
+      <CommentForm onSubmit={handleCommentSubmit} />
 
       {/* コメント一覧 */}
       <CommentList

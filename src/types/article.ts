@@ -1,4 +1,4 @@
-import type { ArticleStatus } from '../constants'
+import type { ArticleStatus, ArticleScope } from '../constants'
 import type { Comment } from './comment'
 
 /**
@@ -42,6 +42,10 @@ export interface Article {
   favoriteCount?: number
   /** ステータス */
   status?: ArticleStatus
+  /** 公開範囲 */
+  scope?: ArticleScope
+  /** チームID（チーム限定の場合のみ） */
+  teamId?: string
   /** コメント */
   comments?: Array<Comment>
 }

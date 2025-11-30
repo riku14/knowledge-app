@@ -17,3 +17,11 @@ export const ArticleStatus = {
 } as const
 
 export type ArticleStatus = (typeof ArticleStatus)[keyof typeof ArticleStatus]
+
+// 公開範囲
+export const ArticleScope = {
+  PUBLIC: 'public',
+  TEAM: 'team',
+} as const
+
+export type ArticleScope = (typeof ArticleScope)[keyof typeof ArticleScope]

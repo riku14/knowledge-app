@@ -52,7 +52,8 @@ export const mockArticles: Article[] = [
   {
     id: '3',
     title: 'React Hooks入門',
-    content: 'React Hooksを使った関数コンポーネントの実装方法について説明します。useState、useEffect、カスタムフックなど、実践的な使い方を学びましょう。',
+    content:
+      'React Hooksを使った関数コンポーネントの実装方法について説明します。useState、useEffect、カスタムフックなど、実践的な使い方を学びましょう。',
     category: {
       id: '1',
       name: '技術ドキュメント',
@@ -76,7 +77,8 @@ export const mockArticles: Article[] = [
   {
     id: '4',
     title: 'データベース設計のベストプラクティス',
-    content: '効率的なデータベース設計のための重要な原則とパターンについて解説します。正規化、インデックス設計、パフォーマンス最適化のポイントを学びます。',
+    content:
+      '効率的なデータベース設計のための重要な原則とパターンについて解説します。正規化、インデックス設計、パフォーマンス最適化のポイントを学びます。',
     category: {
       id: '2',
       name: '開発関連',
@@ -99,7 +101,8 @@ export const mockArticles: Article[] = [
   {
     id: '5',
     title: 'RESTful API設計ガイド',
-    content: 'RESTful APIを設計する際のベストプラクティスをまとめました。エンドポイントの命名規則、HTTPメソッドの適切な使用、エラーハンドリングなどについて説明します。',
+    content:
+      'RESTful APIを設計する際のベストプラクティスをまとめました。エンドポイントの命名規則、HTTPメソッドの適切な使用、エラーハンドリングなどについて説明します。',
     category: {
       id: '3',
       name: 'API設計',
@@ -123,7 +126,8 @@ export const mockArticles: Article[] = [
   {
     id: '6',
     title: 'TypeScriptの型安全性を活かす',
-    content: 'TypeScriptの型システムを最大限に活用するためのテクニックを紹介します。型ガード、ジェネリクス、ユーティリティ型など、実践的な型定義の方法を学びます。',
+    content:
+      'TypeScriptの型システムを最大限に活用するためのテクニックを紹介します。型ガード、ジェネリクス、ユーティリティ型など、実践的な型定義の方法を学びます。',
     category: {
       id: '1',
       name: '技術ドキュメント',
@@ -146,7 +150,8 @@ export const mockArticles: Article[] = [
   {
     id: '7',
     title: 'マイクロサービスのアーキテクチャパターン',
-    content: 'マイクロサービスアーキテクチャを構築する際の主要なパターンについて説明します。サービス間通信、データ管理、デプロイメント戦略などの観点から解説します。',
+    content:
+      'マイクロサービスアーキテクチャを構築する際の主要なパターンについて説明します。サービス間通信、データ管理、デプロイメント戦略などの観点から解説します。',
     category: {
       id: '2',
       name: '開発関連',
@@ -170,7 +175,8 @@ export const mockArticles: Article[] = [
   {
     id: '8',
     title: 'Gitのブランチ戦略まとめ',
-    content: 'Gitのブランチ戦略について、Git Flow、GitHub Flow、Trunk Based Developmentなどの主要な戦略を比較・解説します。プロジェクトの規模に応じた適切な選択方法も説明します。',
+    content:
+      'Gitのブランチ戦略について、Git Flow、GitHub Flow、Trunk Based Developmentなどの主要な戦略を比較・解説します。プロジェクトの規模に応じた適切な選択方法も説明します。',
     category: {
       id: '4',
       name: '開発ツール',
@@ -193,7 +199,8 @@ export const mockArticles: Article[] = [
   {
     id: '9',
     title: 'パフォーマンス最適化の実践',
-    content: 'Webアプリケーションのパフォーマンスを向上させるための具体的な手法を紹介します。コード分割、レイジーローディング、キャッシング、画像最適化などのテクニックを解説します。',
+    content:
+      'Webアプリケーションのパフォーマンスを向上させるための具体的な手法を紹介します。コード分割、レイジーローディング、キャッシング、画像最適化などのテクニックを解説します。',
     category: {
       id: '1',
       name: '技術ドキュメント',
@@ -217,7 +224,8 @@ export const mockArticles: Article[] = [
   {
     id: '10',
     title: 'Docker入門ガイド',
-    content: 'Dockerの基本概念から実践的な使い方まで、ステップバイステップで学べる入門ガイドです。コンテナの作成、イメージの管理、Docker Composeの活用方法を説明します。',
+    content:
+      'Dockerの基本概念から実践的な使い方まで、ステップバイステップで学べる入門ガイドです。コンテナの作成、イメージの管理、Docker Composeの活用方法を説明します。',
     category: {
       id: '4',
       name: '開発ツール',
@@ -241,7 +249,8 @@ export const mockArticles: Article[] = [
   {
     id: '11',
     title: '認証・認可の実装方法',
-    content: 'Webアプリケーションにおける認証と認可の実装方法について、JWT、OAuth、セッション管理などの技術を比較しながら解説します。セキュリティのベストプラクティスも含みます。',
+    content:
+      'Webアプリケーションにおける認証と認可の実装方法について、JWT、OAuth、セッション管理などの技術を比較しながら解説します。セキュリティのベストプラクティスも含みます。',
     category: {
       id: '3',
       name: 'API設計',
@@ -265,7 +274,8 @@ export const mockArticles: Article[] = [
   {
     id: '12',
     title: 'テスト戦略と実装',
-    content: '効果的なテスト戦略の立て方と、ユニットテスト、統合テスト、E2Eテストの実装方法について解説します。Jest、React Testing Library、Cypressなどのツールの使い方も含みます。',
+    content:
+      '効果的なテスト戦略の立て方と、ユニットテスト、統合テスト、E2Eテストの実装方法について解説します。Jest、React Testing Library、Cypressなどのツールの使い方も含みます。',
     category: {
       id: '2',
       name: '開発関連',
@@ -364,4 +374,8 @@ export const getFilteredArticles = (
   })
 
   return filtered
+}
+
+export const getArticleById = (id: string): Article | undefined => {
+  return mockArticles.find((article) => article.id === id)
 }

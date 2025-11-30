@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage'
 import { HomePage } from './pages/HomePage'
 import { Layout } from './components/layout/Layout'
 import { ArticlesPage } from './pages/ArticlesPage'
+import { ArticleDetailPage } from './pages/ArticleDetailPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/articles/:id" element={<ArticleDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
